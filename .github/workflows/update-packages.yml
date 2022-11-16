@@ -43,4 +43,4 @@ jobs:
           MICROSERVICE_NAME: ${{ inputs.MICROSERVICE_NAME }}
         run: |
             pip install -r .github/scripts/scan_requirements.txt
-            python .github/scripts/scan-yarn-lock.py 
+            python .github/scripts/scan-package-json.py 
