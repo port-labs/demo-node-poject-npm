@@ -102,6 +102,7 @@ def get_deploy_config(ms_name, runtime, token):
 
     Args:
                     ms_name (string): Microservice name
+                    runtime (string): The runtime, or in other words environment
                     token (string): PortAPI token
 
     Returns:
