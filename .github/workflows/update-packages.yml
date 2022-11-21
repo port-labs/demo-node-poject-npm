@@ -6,7 +6,7 @@ on:
       RUNTIME:
         required: true
         type: string
-        default: docker
+        default: docker 
       MICROSERVICE_NAME:
         type: string
         required: true
