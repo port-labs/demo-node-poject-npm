@@ -16,7 +16,7 @@ PACKAGE_LOCK_JSON_PATH = os.path.join(os.path.dirname(os.path.dirname(
 CLIENT_ID = os.environ.get("PORT_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("PORT_CLIENT_SECRET")
 RUNTIME = os.environ.get("RUNTIME")
-MICROSERVICE_NAME=os.environ.get("MICROSERVICE_NAME")
+MICROSERVICE_NAME = os.environ.get("MICROSERVICE_NAME")
 
 API_URL = 'https://api.getport.io/v1'
 
@@ -30,7 +30,7 @@ def create_package_entity_json(pName, pVer):
     package_entity = {
         "identifier": f"{format_name}-{format_version}",
         "title": f"{pName}_{pVer}",
-        "blueprint": "Package",
+        "blueprint": "package",
         "properties": {
             "version": f"{pVer}"
         },
@@ -110,7 +110,7 @@ def get_deploy_config(ms_name, runtime, token):
     """
     identifier = f"{ms_name}-{runtime}"
     deployment_config, status = get_port_entity(
-        "DeploymentConfig", identifier, token)
+        "deploymentConfig", identifier, token)
     if status != 200 and status != 201:
         print(f"DeploymentConfig named {identifier} doesn't exist!")
         return None
@@ -137,14 +137,14 @@ def main():
         package_ver = json_dict["packages"][f"node_modules/{package}"]["version"]
         print(package_ver)
         package_entity = create_package_entity_json(package, package_ver)
-        report_to_port("Package", package_entity, token)
+        report_to_port("package", package_entity, token)
         print(
             f"Created {package.replace('.','_').replace('/','-')}-{package_ver.replace('.','_')} package!")
         # Add package to entities relation.package dictionary
         print(dc_entity)
         dc_entity['relations']['package'].append(
             f"{package.replace('.','_').replace('/','-').replace('@','')}-{package_ver.replace('.','_').replace('^','')}")
-    report_to_port("DeploymentConfig", dc_entity, token)
+    report_to_port("deploymentConfig", dc_entity, token)
     print(f"Updated {MICROSERVICE_NAME}-{RUNTIME} DeploymentConfig!")
 
 
